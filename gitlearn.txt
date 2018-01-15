@@ -40,8 +40,47 @@
 	用命令git reset HEAD file可以把暂存区的修改撤销掉（unstage），重新放回工作区：
 
 4 远程仓库
-	4 远程仓库
-	
+	登陆GitHub，然后，在右上角找到“Create a new repo”按钮，创建一个新的仓库；
+	本地：git remote add origin git@github.com:songyqwork/gitlearn.git	
+	SSH警告
+
+	当你第一次使用Git的clone或者push命令连接GitHub时，会得到一个警告：
+
+	The authenticity of host 'github.com (xx.xx.xx.xx)' can't be established.
+	RSA key fingerprint is xx.xx.xx.xx.xx.
+	Are you sure you want to continue connecting (yes/no)?
+	这是因为Git使用SSH连接，而SSH连接在第一次验证GitHub服务器的Key时，需要你确认GitHub的Key的指纹信息是否真的来自GitHub	的服务器，输入yes回车即可。
+	Git创建一个分支很快，因为除了增加一个dev指针，改改HEAD的指向，工作区的文件都没有任何变化！
+ 	不过，从现在开始，对工作区的修改和提交就是针对dev分支了，比如新提交一次后，dev指针往前移动一步，而master指针不变：
+	首先，我们创建dev分支，然后切换到dev分支：
+
+	$ git checkout -b dev
+	Switched to a new branch 'dev'
+	git checkout命令加上-b参数表示创建并切换，相当于以下两条命令：
+
+	$ git branch dev
+	$ git checkout dev
+	然后，用git branch命令查看当前分支：
+
+	$ git branch
+	* dev
+ 	 master
+	git branch命令会列出所有分支，当前分支前面会标一个*号。
+
+	然后，我们就可以在dev分支上正常提交，比如对readme.txt做个修改，加上一行：
+
+	Creating a new branch is quick.
+	然后提交：
+
+	$ git add readme.txt 
+	$ git commit -m "branch test"
+	[dev fec145a] branch test
+ 	1 file changed, 1 insertion(+)
+	现在，dev分支的工作完成，我们就可以切换回master分支：
+
+	$ git checkout master
+	Switched to branch 'master'
+	切换回master分支后，再查看一个readme.txt文件，刚才添加的内容不见了！因为那个提交是在dev分支上，而master分支此刻的提	交点并没有变：
 	
 	
 	
